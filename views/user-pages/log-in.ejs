@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/css/bulma.min.css">
+    <!-- <link rel="stylesheet" href="/css/style2.css"> -->
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container" style="padding:2em">
+            <div class="line"></div>
+<% if (success && success.length) { %>
+<div class="notification is-primary">
+    <button class="delete"></button>
+    <%= success %>
+</div>
+<% } %>
+        <div class="columns center mt-4">
+            <div class="column is-half is-offset-one-quarter reg">
+                <% if (error && error.length) { %>
+                <div class="notification is-danger">
+                    <button class="delete"></button>
+                    <%= error %>
+                </div>
+                <% } %>
+
+                <h2 class="title">Sign In</h2>
+                <form action="/user/signin" method="post">
+                    <div class="field">
+                        <label class="label">Email</label>
+                        <div class="control">
+                            <input class="input is-link" type="email" placeholder="juandelacruz@gmail.com"
+                                name="username" value="">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="label">Password</div>
+                        <div class="control">
+                            <input class="input is-link" type="password" name="password"
+                                placeholder="Apes Together Strong" id="">
+                        </div>
+                    </div>
+                    <button type="submit" class="button is-link">Submit</button>
+                </form>
+                <br>
+                <p style="text-align: center;">Not yet Registered? <a href="/user/signup">Sign Up Now</a></p>
+            </div>
+        </div>
+
+</body>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+            const $notification = $delete.parentNode;
+
+            $delete.addEventListener('click', () => {
+                $notification.parentNode.removeChild($notification);
+            });
+        });
+    });
+</script>
+
+</html>

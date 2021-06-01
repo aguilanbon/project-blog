@@ -1,0 +1,115 @@
+<%- include('./partials/header') %>
+<%- include('./partials/navbar.ejs') %>
+<!-- 
+<h2>PINNED POST</h2>
+<div class="line"></div>
+<div class="header">
+    <h3>Introducing the Pixel 5</h3>
+    <div class="col s1">
+        <button name="id" class="pin right" type="submit"><i class="material-icons">bookmark_border</i></button>
+    </div>
+</div>
+<footer>By <span>Bon Aguilan</span> under <a href="" class="tags tech">Technology</a></footer>
+
+<p>Traditionally, Google launches its flagship Pixel smartphone lineup in the Fall. Although the COVID-19
+    pandemic has caused quite a few changes in the industry so far, it looks like the Google Pixel 5 will
+    land only a few days after Fall officially begins! With only a few weeks to go, we already know quite a
+    bit about the device. Not only do we have reliable leaks from the rumor mill, but Google has already
+    confirmed a few details of the phone ahead of time.</p>
+
+<!-- <% blogData.forEach(pinnedData => { %>
+<% if(pinnedData.isPinned === true) {%>
+<p><%= pinnedData.title %> </p>
+<% } %>
+<% }) %> -->
+
+<!-- 
+<h2>RECENT POSTS</h2>
+<div class="line"></div>
+<div class="header">
+    <h3>Is Living in 2020 still Worth It?</h3>
+    <div class="col s1">
+        <button name="id" class="pin right" type="submit"><i class="material-icons">bookmark_border</i></button>
+    </div>
+</div>
+<footer>By <span>Bon Aguilan</span> under <a href="" class="tags life">Life</a> <a href="" class="tags sd">Self
+        Development</a> </footer>
+<p>Traditionally, Google launches its flagship Pixel smartphone lineup in the Fall. Although the COVID-19
+    pandemic has caused quite a few changes in the industry so far, it looks like the Google Pixel 5 will
+    land only a few days after Fall officially begins! With only a few weeks to go, we already know quite a
+    bit about the device. Not only do we have reliable leaks from the rumor mill, but Google has already
+    confirmed a few details of the phone ahead of time.</p> -->
+
+<% if (success && success.length) { %>
+<div class="notification is-primary">
+    <button class="delete"></button>
+    <%= success %>
+</div>
+<% } %>
+
+<% if (error && error.length) { %>
+<div class="notification is-danger">
+    <button class="delete"></button>
+    <%= error %>
+</div>
+<% } %>
+
+<% blogData.forEach(blog => { %>
+
+    <div class="header">
+        <h3><a class="title" href="/blogs/view-post/<%= blog._id %>"> <%= blog.title %></a></h3>
+        <div class="col s1">
+            <form action="/blogs/pin/:id" method="post">
+                <button name="id" value="<%= blog._id %>" class="pin right" type="submit">
+                    <i class="material-icons">bookmark_border</i></button>
+            </form>
+        </div>
+    </div>
+    <% let categories = blog.category %>
+<div class="row">
+    <div class="columns">
+        <div class="column is-narrow"  style="padding-right: 0px;">
+            <div class="op-avatar">
+            <figure class="image is-32x32">
+                <img class="is-rounded" src="/images/avatar/<%= blog.author.avatar %>" style="margin-top: 0px;">
+            </figure>
+        </div>
+        </div>
+        <div class="column is-narrow mt-2" id="info">
+            <footer>By <span> <%= blog.author.fname %> <%= blog.author.lname %> </span>
+                <% if (categories.length <= 0) { %>
+                <a href="" class="tags life">
+                    <%= `N/A` %>
+                </a>
+                <% } else { %>
+            </footer>
+        </div>
+    </div>
+
+    <div class="columns" style="margin-left: 0px;">
+        <% categories.forEach(cats => { %>
+        <div class="column is-narrow" style="padding: 2px;">
+            <span class="tag"
+                style="background-color: <%=cats.color%>;color:white;text-decoration:none"><%= cats.name %></span>
+        </div>
+        <% }) %>
+        <% } %>
+    </div>
+    <p><%= blog.content.slice(0, 600) %>...</p>
+    <% }) %>
+
+</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+                const $notification = $delete.parentNode;
+
+                $delete.addEventListener('click', () => {
+                    $notification.parentNode.removeChild($notification);
+                });
+            });
+        });
+    </script>
+
+    <%- include('./partials/footer') %>

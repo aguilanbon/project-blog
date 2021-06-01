@@ -1,0 +1,61 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navbar') %>
+
+<h2>NEW POST</h2>
+<div class="line"></div>
+<div class="container">
+
+
+    <div class="columns">
+        <div class="column is-6 is-offset-3">
+            <form action="" method="post">
+                <div class="field mb-5">
+                    <label class="label">Title</label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Text input" name="title">
+                    </div>
+                </div>
+                <div class="field mb-5">
+                    <label class="label">Snippet</label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Text input" name="snippet">
+                    </div>
+                </div>
+                <div class="columns mb-5">
+                    <div class="column is-centered">
+                        <label class="label">Categories</label>
+                        <% catData.forEach(cat => { %>
+                        <label class="checkbox"  style="padding: 10px;">
+                            <input type="checkbox" name="category" value="<%= cat._id %>">
+                            <%= cat.name %>
+                        </label>
+                        <% }) %>
+                    </div>
+                </div>
+                <div class="field mb-5">
+                    <label class="label">Content</label>
+                    <div class="control">
+                        <textarea class="textarea" placeholder="Textarea" name="content" cols="30" rows="10" id="mytextarea"></textarea>
+                    </div>
+                </div>
+                <button class="button is-link is-rounded mb-5">Submit</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+</form>
+
+
+<!-- <script>
+    const liveType = document.querySelector('#wow')
+    const typeArea = document.querySelector('#mytextarea')
+
+    typeArea.addEventListener('input', ()=> {
+        liveType.innerText = typeArea.value
+    })
+</script> -->
+
+<%- include('../partials/footer') %>

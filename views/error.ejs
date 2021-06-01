@@ -1,0 +1,19 @@
+<%- include('./partials/header') %>
+<%- include('./partials/navbar') %>
+
+<div class="row">
+    <div class="error-container">
+        <h3>404</h3>
+        <h1>Page Not Found!</h1>
+        <p>We've encountered an error, you might be trying to access a page that does not exist. We will now redirect you to our Home page.</p>
+    </div>
+</div>
+
+
+<script>
+  setTimeout(function () {
+     window.location = "/blogs";
+  }, 5000)
+</script>
+
+<%- include('./partials/footer') %>

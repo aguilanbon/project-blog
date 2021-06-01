@@ -1,0 +1,40 @@
+<div class="side-panel">
+    <div class="column">
+    </div>
+    <% if (user === 'Guest') { %>
+    <div class="currentUser-avatar">
+        <figure class="image is-48x48">
+            <img class="is-rounded" src="/images/avatar/user.png" style="margin-top: 0px;">
+        </figure>
+    </div>
+    <p>Hello, Random Citizen!</p>
+    <% } else { %>
+    <div class="currentUser-avatar">
+        <figure class="image is-48x48">
+            <img class="avat is-rounded" src="/images/avatar/<%= user.avatar %>" style="margin-top: 0px;">
+        </figure>
+        <p style="padding-top: 5px;font-size: 1.1em;"><%= user.fname %> <%= user.lname %></p>
+        <a href="/user/logout" id="log-out" style="padding-top: 0px;">
+            logout
+        </a>
+    </div>
+
+    <% } %>
+    <h2>
+        <a class="home-banner" href="/">PROJECT: BLOG</a>
+    </h2>
+    <p style="padding: 5px;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio</p>
+    <div class="nav-links">
+        <% if (user === 'Guest') { %>
+        <a href="/blogs/create" class="a-links">Sign In</a>
+        <% } else { %>
+        <a href="/blogs/create" class="a-links">New Post</a>
+        <% } %>
+        <a class="a-links" href="">About Me</a>
+        <a class="a-links" href="">Contact</a>
+    </div>
+    <br>
+
+
+</div>
+<div class="blog-container">

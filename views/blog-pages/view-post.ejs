@@ -1,0 +1,126 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navbar') %>
+
+<div class="line"></div>
+<% if (success && success.length) { %>
+<div class="notification is-primary">
+    <button class="delete"></button>
+    <%= success %>
+</div>
+<% } %>
+<div class="columns">
+
+    <div class="column is-2" style="text-align: center;">
+        <div class="avatar-flex">
+            <figure class="image is-128x128">
+                <img class="is-rounded" src="/images/avatar/<%= blog.author.avatar %>" style="margin-top: 0px;">
+            </figure>
+        </div>
+        <div class="control mt-3">
+            <div class="tags has-addons is-centered is-small">
+                <span class="tag is-dark"><%= blog.author.fname %> <%= blog.author.lname %></span>
+                <span class="tag is-info">Author</span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="column">
+        <h3 id="blog-title"><%= blog.title %> </h3>
+        <blockquote class="info" style="margin-bottom: 20px;"> <%= blogDate %> </blockquote>
+
+        <div class="column">
+            <% const cats = blog.category %>
+            <div class="columns " style="margin-left: 0px;">
+                <% cats.forEach(cat => { %>
+                <div class="column is-narrow" style="padding: 2px;">
+                    <span class="tag"
+                        style="background-color: <%=cat.color%>;color:white;text-decoration:none"><%= cat.name %></span>
+                </div>
+                <% }) %>
+            </div>
+            <p class="view-content"><%= blog.content %> </p>
+
+            <div class="" style="width:100%;padding-top: 0px;margin-left: auto;">
+                <% if (auth === 'Authorized') { %>
+                <form action="/blogs/<%= blog._id %>?_method=DELETE" method="post">
+                    <a href="/blogs/edit/<%= blog._id %> " class="button is-info is-small is-light">
+                        Edit
+                    </a>
+                    <button type="submit" class="button is-danger is-small is-light">Delete</button>
+
+                </form>
+                <% } else { %>
+                <% } %>
+            </div>
+        </div>
+        <div class="comments-container" style="padding: 12px;">
+            <h3 style="font-size:1.2em">Comment Section</h3>
+            <% if (user === 'Guest') { %>
+            <p style="margin-bottom: 0;">Please <a href="/user/signin">Sign in</a> to add Comments</p>
+            <div class="line comments-line"></div>
+            <% if (blogComments.length === 0) { %>
+            <p id="no-comment"> No Comments to Show</p>
+            <% }  else {%>
+            <% blogComments.forEach(comment => { %>
+            <p id="comment-name"> <%= comment.authorId.fname %> <%= comment.authorId.lname %></p>
+            <p id="comments"> <%= comment.commentField %></p>
+            <p id="comment-bloc"><%= comment.createdAt %></p>
+            <% }) %>
+            <% } %>
+            <% } else { %>
+            <form action="/blogs/comment-post/<%= blog._id %>?_method=PATCH" method="post">
+                <div class="field">
+                    <div class="control">
+                        <textarea class="textarea" placeholder="Join the discussion" name="comment" cols="5"
+                            rows="2"></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="c-links">Add Comment</button>
+            </form>
+            <div class="line comments-line"></div>
+
+            <% if (blogComments.length === 0) { %>
+            <p id="no-comment"> No Comments to Show</p>
+            <% }  else {%>
+            <% blogComments.forEach(comment => { %>
+            <div class="columns is-mobile">
+                <div class="column is-narrow" style="padding-right: 0;padding-bottom: 0px;padding-top: 0;">
+                    <figure class="image is-32x32">
+                        <img class="is-rounded" src="/images/avatar/<%= comment.authorId.avatar %>"
+                            style="margin-top: 0px;">
+                    </figure>
+                </div>
+                <div class="column" style="padding-left: 5px;padding-bottom: 0px;padding-top: 0;">
+                    <p id="comment-name" style="margin-top: 5px;"> <%= comment.authorId.fname %> <%= comment.authorId.lname %></p>
+                </div>
+            </div>
+                <div class="columns">
+                    <div class="column" style="padding-top: 0;padding-left:40px;">
+                        <p id="comments"> <%= comment.commentField %></p>
+                        <p id="comment-bloc"><%= comment.createdAt %></p>
+
+                    </div>
+                </div>
+
+            <% }) %>
+            <% } %>
+            <% } %>
+
+
+            <%- include('../partials/footer') %>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+            const $notification = $delete.parentNode;
+
+            $delete.addEventListener('click', () => {
+                $notification.parentNode.removeChild($notification);
+            });
+        });
+    });
+</script>
