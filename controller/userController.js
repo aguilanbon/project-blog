@@ -31,12 +31,12 @@ const signin_post = async (req, res) => {
 	try {
 		const foundUser = await User.findOne({ username });
 		if (!foundUser) {
-			req.flash('error', 'Incorrect Username / User not Found');
+			req.flash('error', 'Incorrect Username / Passowrd');
 			res.status(400).redirect('/user/signin');
 		}
 		const verifyPassword = await bcrypt.compare(password, foundUser.password);
 		if (!verifyPassword) {
-			req.flash('error', 'Incorrect Password! Please try again.');
+			req.flash('error', 'Incorrect Username / Passowrd');
 			res.status(400).redirect('/user/signin');
 		}
 		const user_token = createToken(foundUser._id);
@@ -50,7 +50,7 @@ const signin_post = async (req, res) => {
 
 const logout = (req, res) => {
 	res.cookie('jwt', '', { maxAge: 1 });
-	req.flash('success', 'Log out Successful, Comeback soon!');
+	req.flash('success', 'Log out Successful, Come again soon!');
 	res.redirect('/blogs');
 };
 
