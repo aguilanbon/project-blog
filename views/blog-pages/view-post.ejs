@@ -55,7 +55,7 @@
             </div>
         </div>
         <div class="comments-container" style="padding: 12px;">
-            <h3 style="font-size:1.2em">Comment Section</h3>
+            <h3 style="font-size:1.2em">Join the discussion</h3>
             <% if (user === 'Guest') { %>
             <p style="margin-bottom: 0;">Please <a href="/user/signin">Sign in</a> to add Comments</p>
             <div class="line comments-line"></div>
@@ -72,7 +72,7 @@
             <form action="/blogs/comment-post/<%= blog._id %>?_method=PATCH" method="post">
                 <div class="field">
                     <div class="control">
-                        <textarea class="textarea" placeholder="Join the discussion" name="comment" cols="5"
+                        <textarea class="textarea" placeholder="write something nice..." name="comment" cols="5"
                             rows="2"></textarea>
                     </div>
                 </div>

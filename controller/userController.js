@@ -9,7 +9,6 @@ const signup = (req, res) => {
 
 const signup_post = async (req, res) => {
 	const { fname, lname, username, password } = req.body;
-	console.log(req.file);
 	try {
 		await User.create({ fname, lname, username, password, avatar: req.file.filename }).then((data) => {
 			console.log(data);
